@@ -1,0 +1,244 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>oving7</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-10-23"><meta name="DC.source" content="oving7.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Problem 1</a></li><li><a href="#3">Problem 2</a></li><li><a href="#4">Problem 3</a></li></ul></div><h2>Problem 1<a name="1"></a></h2><p>a) The graphs speak for themselves</p><pre class="codeinput">L=100;
+x=linspace(1, L, L);
+
+figure(1)
+
+subplot(3,1,1);
+b=randi([0 1], 1, L)*2-1;
+stem(x, b);
+title(<span class="string">'White binary noise'</span>);
+
+subplot(3,1,2);
+g=randn(1, L);
+stem(x, g);
+title(<span class="string">'White Gaussian noise'</span>);
+
+subplot(3,1,3);
+u=rand(1, L).*b*sqrt(3);
+stem(x, u);
+title(<span class="string">'White uniform noise'</span>);
+</pre><img vspace="5" hspace="5" src="oving7_01.png" alt=""> <p>c)</p><pre class="codeinput">N=20000;
+b1=randi([0 1], 1, N)*2-1;
+g1=randn(1, N);
+u1=rand(1, N).*b1*sqrt(3);
+
+mean(b1)
+mean(g1)
+mean(u1)
+
+<span class="comment">% All of the values are less than 0.01, so they are close to the</span>
+<span class="comment">% theoretical mean of 0</span>
+
+rbxx=xcorr(b1);
+rgxx=xcorr(g1);
+ruxx=xcorr(u1);
+
+figure(2)
+
+subplot(3,1,1);
+plot(rbxx);
+title(<span class="string">'Autocorrelation of white binary noise'</span>);
+
+subplot(3,1,2);
+plot(rgxx);
+title(<span class="string">'Autocorrelation of white Gaussian noise'</span>);
+
+subplot(3,1,3);
+plot(ruxx);
+title(<span class="string">'Autocorrelation of white uniform noise'</span>);
+</pre><pre class="codeoutput">
+ans =
+
+    0.0060
+
+
+ans =
+
+    0.0079
+
+
+ans =
+
+    0.0096
+
+</pre><img vspace="5" hspace="5" src="oving7_02.png" alt=""> <h2>Problem 2<a name="3"></a></h2><p>c)</p><pre class="codeinput">N=20000;
+n=linspace(-9999,10000,N);
+gw=randn(1, N);
+
+h=(-1/2).^n;
+
+x=filter(1, [1 -1/2], gw);
+length(x)
+mean(x)
+<span class="comment">%stem(x);</span>
+mx=sum(x)/length(x1);
+<span class="comment">%stem(mx);</span>
+rxx=xcorr(x, 10);
+stem(-10:10,rxx);
+<span class="comment">%stem(linspace(-length(rxx)/2, length(rxx)/2-1, length(rxx)), rxx);</span>
+</pre><pre class="codeoutput">
+ans =
+
+       20000
+
+
+ans =
+
+   -0.0067
+
+</pre><img vspace="5" hspace="5" src="oving7_03.png" alt=""> <h2>Problem 3<a name="4"></a></h2><p>a)</p><pre class="codeinput">K=20;
+gw=randn(1, 100);
+x=filter(1, [1 -1/2], gw);
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Problem 1
+% a)
+% The graphs speak for themselves
+L=100;
+x=linspace(1, L, L);
+
+figure(1)
+
+subplot(3,1,1);
+b=randi([0 1], 1, L)*2-1;
+stem(x, b);
+title('White binary noise');
+
+subplot(3,1,2);
+g=randn(1, L);
+stem(x, g);
+title('White Gaussian noise');
+
+subplot(3,1,3);
+u=rand(1, L).*b*sqrt(3);
+stem(x, u);
+title('White uniform noise');
+
+%%
+% c)
+
+N=20000;
+b1=randi([0 1], 1, N)*2-1;
+g1=randn(1, N);
+u1=rand(1, N).*b1*sqrt(3);
+
+mean(b1)
+mean(g1)
+mean(u1)
+
+% All of the values are less than 0.01, so they are close to the
+% theoretical mean of 0
+
+rbxx=xcorr(b1);
+rgxx=xcorr(g1);
+ruxx=xcorr(u1);
+
+figure(2)
+
+subplot(3,1,1);
+plot(rbxx);
+title('Autocorrelation of white binary noise');
+
+subplot(3,1,2);
+plot(rgxx);
+title('Autocorrelation of white Gaussian noise');
+
+subplot(3,1,3);
+plot(ruxx);
+title('Autocorrelation of white uniform noise');
+
+%% Problem 2
+% c)
+N=20000;
+n=linspace(-9999,10000,N);
+gw=randn(1, N);
+
+h=(-1/2).^n;
+
+x=filter(1, [1 -1/2], gw);
+length(x)
+mean(x)
+%stem(x);
+mx=sum(x)/length(x1);
+%stem(mx);
+rxx=xcorr(x, 10);
+stem(-10:10,rxx);
+%stem(linspace(-length(rxx)/2, length(rxx)/2-1, length(rxx)), rxx);
+
+%% Problem 3
+% a)
+
+K=20;
+gw=randn(1, 100);
+x=filter(1, [1 -1/2], gw);
+
+
+##### SOURCE END #####
+--></body></html>
